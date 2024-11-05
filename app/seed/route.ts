@@ -121,16 +121,16 @@
 // }
 export async function GET() {
    try {
-     await client.sql`BEGIN`; // Start the transaction
-     await seedUsers();        // Seed users
-     await seedCustomers();    // Seed customers
-     await seedInvoices();     // Seed invoices
-     await seedRevenue();      // Seed revenue
-     await client.sql`COMMIT`; // Commit the transaction
+     await client.sql`BEGIN`; 
+     await seedUsers();        
+     await seedCustomers();    
+     await seedInvoices();     
+     await seedRevenue();      
+     await client.sql`COMMIT`; 
 
      return Response.json({ message: 'Database seeded successfully' });
    } catch (error) {
-     await client.sql`ROLLBACK`; // Rollback in case of an error
+     await client.sql`ROLLBACK`; 
      return Response.json({ error }, { status: 500 });
    }
 }
