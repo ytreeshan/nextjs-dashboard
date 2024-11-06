@@ -1,10 +1,11 @@
+
+
 'use server';
 
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { redirect } from 'next/navigation';
-
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
 
@@ -67,7 +68,8 @@ export async function createInvoice(prevState: State, formData: FormData) {
       INSERT INTO invoices (customer_id, amount, status, date)
       VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
     `;
-  } catch {
+  } catch (error) {
+    console.error(error); // Log the error for debugging
     return {
       message: 'Database Error: Failed to Create Invoice.',
     };
@@ -100,7 +102,8 @@ export async function updateInvoice(id: string, prevState: State, formData: Form
       SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
       WHERE id = ${id}
     `;
-  } catch {
+  } catch (error) {
+    console.error(error); // Log the error for debugging
     return { message: 'Database Error: Failed to Update Invoice.' };
   }
 
@@ -108,16 +111,18 @@ export async function updateInvoice(id: string, prevState: State, formData: Form
   redirect('/dashboard/invoices');
 }
 
-// New deleteInvoice function
+// Uncomment and complete this function if needed
 export async function deleteInvoice(id: string) {
   try {
     await sql`DELETE FROM invoices WHERE id = ${id}`;
     revalidatePath('/dashboard/invoices');
     return { message: 'Deleted Invoice.' };
-  } catch {
+  } catch (error) {
+    console.error(error); // Log the error for debugging
     return { message: 'Database Error: Failed to Delete Invoice.' };
   }
 }
+
 
 
 
@@ -128,7 +133,7 @@ export async function deleteInvoice(id: string) {
 // import { revalidatePath } from 'next/cache';
 // import { z } from 'zod';
 // import { redirect } from 'next/navigation';
-
+// // import { UpdateInvoice } from '../ui/invoices/buttons';
 
  
 // import { signIn } from '@/auth';
@@ -269,7 +274,6 @@ export async function deleteInvoice(id: string) {
  
 //   const { customerId, amount, status } = validatedFields.data;
 //   const amountInCents = amount * 100;
-//   const error = someErrorHandlingFunction();
  
 //   try {
 //     await sql`
@@ -283,10 +287,6 @@ export async function deleteInvoice(id: string) {
  
 //   revalidatePath('/dashboard/invoices');
 //   redirect('/dashboard/invoices');
-// }
-
-// function someErrorHandlingFunction() {
-//   throw new Error('Function not implemented.');
 // }
 // // export async function updateInvoice(id: string, formData: FormData) {
 // //   const { customerId, amount, status } = UpdateInvoice.parse({
