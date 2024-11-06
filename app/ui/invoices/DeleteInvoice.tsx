@@ -1,5 +1,5 @@
-// Add this line at the top of your file
-'use client';
+// app/invoices/ui/DeleteInvoice.tsx
+'use client'; // Make sure this is the first line
 
 import { TrashIcon } from '@heroicons/react/24/outline';
 
@@ -18,7 +18,7 @@ export function DeleteInvoice({ id }: { id: string }) {
         }
 
         alert('Invoice deleted successfully.');
-        // Optionally, add logic to refresh the invoice list or update the UI
+        // Optionally refresh the list or trigger a state update
       } catch (error) {
         console.error('Error deleting invoice:', error);
         alert('An error occurred while deleting the invoice.');
@@ -28,8 +28,8 @@ export function DeleteInvoice({ id }: { id: string }) {
 
   return (
     <button
+      onClick={handleDelete}
       className="rounded-md border p-2 hover:bg-gray-100"
-      onClick={handleDelete} // Use handleDelete function here
     >
       <span className="sr-only">Delete</span>
       <TrashIcon className="w-5" />

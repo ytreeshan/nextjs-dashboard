@@ -81,6 +81,7 @@ export type CustomerField = {
 };
 
 export type InvoiceForm = {
+  title: ReactNode;
   id: string;
   customer_id: string;
   amount: number;
