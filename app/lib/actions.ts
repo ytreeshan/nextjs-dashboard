@@ -4,7 +4,7 @@ import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { redirect } from 'next/navigation';
-import { UpdateInvoice } from '../ui/invoices/buttons';
+// import { UpdateInvoice } from '../ui/invoices/buttons';
 
 
 const FormSchema = z.object({
@@ -20,6 +20,7 @@ const FormSchema = z.object({
 });
  
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
+const UpdateInvoice = FormSchema;
 
 export type State = {
   errors?: {
