@@ -8,7 +8,7 @@ export function DeleteInvoice({ id }: { id: string }) {
     const confirmed = window.confirm('Are you sure you want to delete this invoice?');
 
     if (confirmed) {
-      
+      try {
         const response = await fetch(`/api/invoices/${id}`, {
           method: 'DELETE',
         });
@@ -19,7 +19,10 @@ export function DeleteInvoice({ id }: { id: string }) {
 
         alert('Invoice deleted successfully.');
         // Optionally refresh the list or trigger a state update
-      
+      } catch (error) {
+        console.error('Error deleting invoice:', error);
+        alert('An error occurred while deleting the invoice.');
+      }
     }
   };
 
